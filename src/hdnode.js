@@ -26,7 +26,7 @@ function HDNode (keyPair, chainCode) {
 
 HDNode.HIGHEST_BIT = 0x80000000
 HDNode.LENGTH = 78
-HDNode.MASTER_SECRET = Buffer.from('Bitcoin seed', 'utf8')
+HDNode.MASTER_SECRET = Buffer.from('Icocoin seed', 'utf8')
 
 HDNode.fromSeedBuffer = function (seed, network) {
   typeforce(types.tuple(types.Buffer, types.maybe(types.Network)), arguments)
@@ -69,9 +69,9 @@ HDNode.fromBase58 = function (string, networks) {
 
     if (!network) throw new Error('Unknown network version')
 
-  // otherwise, assume a network object (or default to bitcoin)
+  // otherwise, assume a network object (or default to icocoin)
   } else {
-    network = networks || NETWORKS.bitcoin
+    network = networks || NETWORKS.icocoin
   }
 
   if (version !== network.bip32.private &&
@@ -202,7 +202,7 @@ HDNode.prototype.toBase58 = function (__isPrivate) {
   return base58check.encode(buffer)
 }
 
-// https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#child-key-derivation-ckd-functions
+// https://github.com/icocoin/bips/blob/master/bip-0032.mediawiki#child-key-derivation-ckd-functions
 HDNode.prototype.derive = function (index) {
   typeforce(types.UInt32, index)
 

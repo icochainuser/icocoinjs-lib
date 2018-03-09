@@ -49,7 +49,7 @@ function toBech32 (data, version, prefix) {
 }
 
 function fromOutputScript (outputScript, network) {
-  network = network || networks.bitcoin
+  network = network || networks.icocoin
 
   if (btemplates.pubKeyHash.output.check(outputScript)) return toBase58Check(bscript.compile(outputScript).slice(3, 23), network.pubKeyHash)
   if (btemplates.scriptHash.output.check(outputScript)) return toBase58Check(bscript.compile(outputScript).slice(2, 22), network.scriptHash)
@@ -60,7 +60,7 @@ function fromOutputScript (outputScript, network) {
 }
 
 function toOutputScript (address, network) {
-  network = network || networks.bitcoin
+  network = network || networks.icocoin
 
   var decode
   try {

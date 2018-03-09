@@ -3,14 +3,14 @@
 var assert = require('assert')
 var async = require('async')
 var bigi = require('bigi')
-var bitcoin = require('../../')
+var icocoin = require('../../')
 var mainnet = require('./_mainnet')
 var crypto = require('crypto')
 
 var ecurve = require('ecurve')
 var secp256k1 = ecurve.getCurveByName('secp256k1')
 
-describe('bitcoinjs-lib (crypto)', function () {
+describe('icocoinjs-lib (crypto)', function () {
   it('can recover a private key from duplicate R values', function (done) {
     this.timeout(30000)
 
@@ -33,7 +33,7 @@ describe('bitcoinjs-lib (crypto)', function () {
 
       var transactions = {}
       results.forEach(function (tx) {
-        transactions[tx.txId] = bitcoin.Transaction.fromHex(tx.txHex)
+        transactions[tx.txId] = icocoin.Transaction.fromHex(tx.txHex)
       })
 
       var tasks = []
@@ -42,9 +42,9 @@ describe('bitcoinjs-lib (crypto)', function () {
       inputs.forEach(function (input) {
         var transaction = transactions[input.txId]
         var script = transaction.ins[input.vout].script
-        var scriptChunks = bitcoin.script.decompile(script)
+        var scriptChunks = icocoin.script.decompile(script)
 
-        assert(bitcoin.script.pubKeyHash.input.check(scriptChunks), 'Expected pubKeyHash script')
+        assert(icocoin.script.pubKeyHash.input.check(scriptChunks), 'Expected pubKeyHash script')
 
         var prevOutTxId = Buffer.from(transaction.ins[input.vout].hash).reverse().toString('hex')
         var prevVout = transaction.ins[input.vout].index
@@ -53,11 +53,11 @@ describe('bitcoinjs-lib (crypto)', function () {
           mainnet.transactions.get(prevOutTxId, function (err, result) {
             if (err) return callback(err)
 
-            var prevOut = bitcoin.Transaction.fromHex(result.txHex)
+            var prevOut = icocoin.Transaction.fromHex(result.txHex)
             var prevOutScript = prevOut.outs[prevVout].script
 
-            var scriptSignature = bitcoin.ECSignature.parseScriptSignature(scriptChunks[0])
-            var publicKey = bitcoin.ECPair.fromPublicKeyBuffer(scriptChunks[1])
+            var scriptSignature = icocoin.ECSignature.parseScriptSignature(scriptChunks[0])
+            var publicKey = icocoin.ECPair.fromPublicKeyBuffer(scriptChunks[1])
 
             var m = transaction.hashForSignature(input.vout, prevOutScript, scriptSignature.hashType)
             assert(publicKey.verify(m, scriptSignature.signature), 'Invalid m')
@@ -127,7 +127,7 @@ describe('bitcoinjs-lib (crypto)', function () {
       serQP.copy(data, 0)
 
       // search index space until we find it
-      for (var i = 0; i < bitcoin.HDNode.HIGHEST_BIT; ++i) {
+      for (var i = 0; i < icocoin.HDNode.HIGHEST_BIT; ++i) {
         data.writeUInt32BE(i, 33)
 
         // calculate I
@@ -138,11 +138,11 @@ describe('bitcoinjs-lib (crypto)', function () {
         // See hdnode.js:273 to understand
         d2 = d1.subtract(pIL).mod(curve.n)
 
-        var Qp = new bitcoin.ECPair(d2).Q
+        var Qp = new icocoin.ECPair(d2).Q
         if (Qp.equals(QP)) break
       }
 
-      var node = new bitcoin.HDNode(new bitcoin.ECPair(d2), master.chainCode, master.network)
+      var node = new icocoin.HDNode(new icocoin.ECPair(d2), master.chainCode, master.network)
       node.depth = master.depth
       node.index = master.index
       node.masterFingerprint = master.masterFingerprint
@@ -150,7 +150,7 @@ describe('bitcoinjs-lib (crypto)', function () {
     }
 
     var seed = crypto.randomBytes(32)
-    var master = bitcoin.HDNode.fromSeedBuffer(seed)
+    var master = icocoin.HDNode.fromSeedBuffer(seed)
     var child = master.derive(6) // m/6
 
     // now for the recovery

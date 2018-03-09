@@ -31,10 +31,10 @@ __removed__
 - Removed `buffer-equals`/`buffer-compare` dependencies (#650)
 - Removed `HDNode.prototype.toString` (#665)
 - Removed `dogecoin` network (#675)
-- Removed `message` export, moved to [`bitcoinjs-message`](https://github.com/bitcoinjs/bitcoinjs-message) (#456)
+- Removed `message` export, moved to [`icocoinjs-message`](https://github.com/icocoinjs/icocoinjs-message) (#456)
 
 __renamed__
-- Removed `script.*` functions in favour of `bitcoin.script.*.(input/output).(encode/decode/check)` style (#682)
+- Removed `script.*` functions in favour of `icocoin.script.*.(input/output).(encode/decode/check)` style (#682)
 
 # 2.3.0
 __added__
@@ -70,7 +70,7 @@ __fixed__
 
 # 2.1.4
 __fixed__
-- script.isPubKeyHashOutput and script.isScriptHashOutput no longer allow for non-minimal data pushes (per bitcoin/bitcoin `IsStandard` policy) (#499)
+- script.isPubKeyHashOutput and script.isScriptHashOutput no longer allow for non-minimal data pushes (per icocoin/icocoin `IsStandard` policy) (#499)
 - TransactionBuilder.addOutput now allows for SIGHASH_SINGLE, throwing if the contract is violated (#504)
 - remove use of `const`, use ES5 only (#502)
 
@@ -91,7 +91,7 @@ __changed__
 
 __fixed__
 - `isMultisigOutput` no longer allows data chunks for `m`/`n` (#482)
-- `isMultisigOutput`'s `n` value must now match the number of public keys (as per bitcoin/bitcoin) (#484)
+- `isMultisigOutput`'s `n` value must now match the number of public keys (as per icocoin/icocoin) (#484)
 
 
 # 2.1.0
@@ -107,7 +107,7 @@ __added__
 
 
 # 2.0.0
-In this release we have strived to simplify the API,  [using native types](https://github.com/bitcoinjs/bitcoinjs-lib/issues/407) wherevever possible to encourage cross-compatibility with other open source community modules.
+In this release we have strived to simplify the API,  [using native types](https://github.com/icocoinjs/icocoinjs-lib/issues/407) wherevever possible to encourage cross-compatibility with other open source community modules.
 
 The `ecdsa` module has been removed in lieu of using a new ECDSA module (for performance and safety reasons) during the `2.x.y` major release.
 Several other cumbersome modules have been removed,  with their new independent modules recommended for usage instead for greater modularity in your projects.
@@ -117,12 +117,12 @@ Several other cumbersome modules have been removed,  with their new independent 
 Backward incompatible changes:
 
 __added__
-- export `address`, for `address` based [utility functions](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/src/address.js), most compatible, just without `Address` instantiation, see #401, #444
-- export `script`, for `script` based [utility functions](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/src/script.js), mostly compatible, just without `Script` instantiation, see #438, #444
+- export `address`, for `address` based [utility functions](https://github.com/icocoinjs/icocoinjs-lib/blob/master/src/address.js), most compatible, just without `Address` instantiation, see #401, #444
+- export `script`, for `script` based [utility functions](https://github.com/icocoinjs/icocoinjs-lib/blob/master/src/script.js), mostly compatible, just without `Script` instantiation, see #438, #444
 - export `ECPair`, a merged replacement for `ECKey`/`ECPubKey`, invalid types will throw via `typeforce`
 
 __changed__
-- `address.toOutputScript`, `ECPair.prototype.fromWIF` and `HDNode.prototype.fromBase58` no longer automatically detect the network, `networks.bitcoin` is always assumed unless given.
+- `address.toOutputScript`, `ECPair.prototype.fromWIF` and `HDNode.prototype.fromBase58` no longer automatically detect the network, `networks.icocoin` is always assumed unless given.
 - `assert` was used for type checking, now replaced by `typeforce`
 - `BIP66` compliant strict DER signature validation was added to `ECSignature.fromDER`, changing the exact exception messages slightly, see #448.
 
@@ -137,7 +137,7 @@ __changed__
 
 __removed__
 - export `Address`, `strings` are now used,  benchwith no performance loss for most use cases
-- export `base58check`, use [`bs58check`](https://github.com/bitcoinjs/bs58check) instead
+- export `base58check`, use [`bs58check`](https://github.com/icocoinjs/bs58check) instead
 - export `ecdsa`, use [`ecurve`](https://github.com/cryptocoinjs/ecurve) instead
 - export `ECKey`, use new export `ECPair` instead
 - export `ECPubKey`, use new export `ECPair` instead
@@ -156,7 +156,7 @@ __removed__
 - `HDNode.toBuffer`, use `HDNode.prototype.toBase58` instead
 - `HDNode.toHex`, use `HDNode.prototype.toBase58` instead
 
-- `networks.*.magic`, see the comment [here](https://github.com/bitcoinjs/bitcoinjs-lib/pull/432/files#r36715792)
+- `networks.*.magic`, see the comment [here](https://github.com/icocoinjs/icocoinjs-lib/pull/432/files#r36715792)
 - `networks.[viacoin|viacointestnet|gamerscoin|jumbucks|zetacoin]`, import these yourself (see #383/a0e6ee7)
 - `networks.*.estimateFee`, out-dated
 

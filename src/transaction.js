@@ -246,7 +246,7 @@ Transaction.prototype.clone = function () {
 /**
  * Hash transaction for signing a specific input.
  *
- * Bitcoin uses a different hash for each signed transaction input.
+ * Icocoin uses a different hash for each signed transaction input.
  * This method copies the transaction, makes the necessary changes based on the
  * hashType, and then hashes the result.
  * This hash can then be used to sign the provided transaction input.
@@ -254,7 +254,7 @@ Transaction.prototype.clone = function () {
 Transaction.prototype.hashForSignature = function (inIndex, prevOutScript, hashType) {
   typeforce(types.tuple(types.UInt32, types.Buffer, /* types.UInt8 */ types.Number), arguments)
 
-  // https://github.com/bitcoin/bitcoin/blob/master/src/test/sighash_tests.cpp#L29
+  // https://github.com/icocoin/icocoin/blob/master/src/test/sighash_tests.cpp#L29
   if (inIndex >= this.ins.length) return ONE
 
   // ignore OP_CODESEPARATOR
@@ -277,7 +277,7 @@ Transaction.prototype.hashForSignature = function (inIndex, prevOutScript, hashT
 
   // SIGHASH_SINGLE: ignore all outputs, except at the same index?
   } else if ((hashType & 0x1f) === Transaction.SIGHASH_SINGLE) {
-    // https://github.com/bitcoin/bitcoin/blob/master/src/test/sighash_tests.cpp#L60
+    // https://github.com/icocoin/icocoin/blob/master/src/test/sighash_tests.cpp#L60
     if (inIndex >= this.outs.length) return ONE
 
     // truncate outputs after
