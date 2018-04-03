@@ -1,4 +1,4 @@
-# IcocoinJS (fored from bitcoinjs-lib)
+# IcocoinJS (forked from bitcoinjs-lib)
 
 The pure JavaScript Icocoin library for node.js and browsers.
 Estimated to be in use by over 15 million wallet users and is the backbone for almost all Icocoin web wallets in production today.
